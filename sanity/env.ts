@@ -10,7 +10,7 @@ export const dataset = assertValue(
 // projectId comes from your Sanity dashboard → Settings → API
 export const projectId = assertValue(
   process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "workhard", // replace "workhard" with your real projectId!
-  "Missing environment variable: NEXT_PUBLIC_SANITY_PROJECT_ID",
+"Missing environment variable: NEXT_PUBLIC_SANITY_PROJECT_ID",
 );
 
 // private write token (server-side only)

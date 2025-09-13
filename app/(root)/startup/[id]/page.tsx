@@ -22,7 +22,7 @@ export const experimental_ppr = true;
 async function Page({ params }: { params: Promise<{ id: string }> }) {
   const id = (await params).id;
 
-  const [post, { select: editorPosts }] = await Promise.all([
+  const [post, playlist] = await Promise.all([
     client.fetch(STARTUP_BY_ID_QUERY, {
       id: id,
     }),
@@ -30,6 +30,8 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
       slug: "editor-picks",
     }),
   ]);
+
+  const editorPosts = playlist?.select || [];
 
   if (!post) return notFound();
   const parsedContent = md.render(post?.pitch || "");

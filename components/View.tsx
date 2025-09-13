@@ -1,5 +1,3 @@
-import { unstable_after as after } from "next/server";
-
 import Ping from "@/components/Ping";
 import { formatNumber } from "@/lib/utils";
 
@@ -14,12 +12,16 @@ const View = async ({ id }: { id: string }) => {
       id: id,
     });
 
-  after(async () => {
+  // Update view count in the background
+  // Using a try-catch to prevent errors from affecting the UI
+  try {
     await writeClient
       .patch(id)
       .set({ views: totalViews + 1 })
       .commit();
-  });
+  } catch (error) {
+    console.error("Failed to update view count:", error);
+  }
 
   return (
     <div className="view-container">
